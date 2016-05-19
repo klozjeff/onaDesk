@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ONA Data Tool</title>
+
+    <!-- Stylesheets -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="css/photon.css">
+
+    <!-- Javascript -->
+   <!-- <script src="js/menu.js" charset="utf-8"></script>-->
+  </head>
+  <body>
+    <div class="window">
+
+      <!-- .toolbar-header sits at the top of your app 
+      <header class="toolbar toolbar-header">
+        <h1 class="title"></h1>
+      </header>
+-->
+      <!-- Your app's content goes inside .window-content -->
+      <div class="window-content">
+        <div class="pane-group">
+          <div class="pane pane-sm sidebar">
+            <nav class="nav-group">
+              <h5 class="nav-group-title">Main Menu</h5>
+              <span class="nav-group-item active">
+                <span class="icon icon-home"></span>
+          Home
+              </span>
+			     <span class="nav-group-item">
+                <span class="icon icon-light-up"></span>
+             Organizations
+              </span>
+			     <span class="nav-group-item">
+                <span class="icon icon-window"></span>
+             Projects
+              </span>
+           
+              <!--<span class="nav-group-item">
+                <span class="icon icon-download"></span>
+                Downloads
+              </span>
+              <span class="nav-group-item">
+                <span class="icon icon-folder"></span>
+                Documents
+              </span>
+           
+              <span class="nav-group-item">
+                <span class="icon icon-signal"></span>
+                AirDrop
+              </span>
+              <span class="nav-group-item">
+                <span class="icon icon-monitor"></span>
+                Desktop
+              </span>-->
+			   <h5 class="nav-group-title">Settings</h5>
+             
+             <span class="nav-group-item">
+                <span class="icon icon-user"></span>
+            Account
+              </span>
+              <span class="nav-group-item">
+                <span class="icon icon-folder"></span>
+              Plans
+              </span>
+           
+              <span class="nav-group-item">
+                <span class="icon icon-signal"></span>
+                API 
+              </span>
+              <span class="nav-group-item">
+                <span class="icon icon-help"></span>
+                Help
+              </span>
+			    <span class="nav-group-item">
+                <span class="icon icon-link"></span>
+               Product Tour
+              </span>
+            </nav>
+          </div>
+
+          <div class="pane">
+            <table class="table-striped">
+              <thead>
+                <tr>
+                  <th>Project Name</th>
+                  <th>Category</th>
+                  <th>Date Modified</th>
+                  <th>Access</th>
+                </tr>
+              </thead>
+			  <tbody>
+			  
+			  </tbody>
+			
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+	
+	<script>
+window.onload =findOrder;
+ function findOrder() {
+	$.ajax({
+		type: 'GET',
+		url: 'https://api.ona.io/api/v1/projects?owner=klozjeff',
+		dataType: "json",
+		 crossDomain: true,     
+		success: function(data){
+		alert(data);
+        var tr;
+        for (var i = 0; i < json.length; i++) {
+            tr = $('<tr/>');
+            tr.append("<td>" + data[i].name + "</td>");
+            tr.append("<td>" + data[i].url + "</td>");
+            tr.append("<td>" + data[i].date_modified + "</td>");
+			 tr.append("<td>" + data[i].projectid + "</td>");
+               $('table').append(tr);
+           
+		/*$.each(data.users, function(i,user){
+			  $('#code').html('#'+user.code);
+			  $('#product').html(user.product_name+' '+user.product_spec);
+			 $('#price').html('KES '+user.total_amount);
+			  var leo=timeConverter(user.order_date); 
+			   $('#leo').html(leo);
+			   $('#state').html(user.status);
+			    $('#mode').html(user.payment_type);
+				 $('#add').html(user.delivery_address);
+				  $('#when').html('@ '+user.delivery_time);	
+		    
+		});*/
+		}
+		}
+	});
+
+}
+
+function timeConverter(UNIX_timestamp){
+  var a = new Date(UNIX_timestamp * 1000);
+  var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+   var siku = ['Mon','Tue','Wed','Thur','Fri','Sat','Sun'];
+  var year = a.getFullYear();
+  var month = months[a.getMonth()];
+   var day = siku[a.getDay()];
+  var date = a.getDate();
+  var hour = a.getHours();
+  var min = a.getMinutes();
+  var sec = a.getSeconds();
+  var time = day + ' ' + month + ' ' + date + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
+  return time;
+}
+
+
+
+</script>
+  </body>
+</html>
